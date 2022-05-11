@@ -1,23 +1,20 @@
---------
+---
 name: Bug report
 about: Create a report to help us improve
---------
+---
+<!-- Make sure to add this to the project (At the right) -->
 
 <!-- Please search existing issues to avoid creating duplicates. -->
-
-# Bug Report
-
-Bug: Not so Awesome Bug Title
 
 ## Description
 
 Info about the bug goes here.
 
-### Steps to Reproduce
+## Steps to Reproduce
 
 1. Step 1
 2. Step 2
 
-### Expected vs. What Happened
+## Additional Info
 
-What was supposed to happen and what actually happened?
+What was supposed to happen and what actually happened? Any other data?
