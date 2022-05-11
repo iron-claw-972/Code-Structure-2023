@@ -1,13 +1,13 @@
 ---
 name: Task
-about: A small task that is, most likely, part of an Epic. It will usually be labeled as `good first issue`.
+about: A small task that is, most likely, part of an Epic.
 ---
 <!-- Make sure to add this to the project (At the right) -->
 
 
 ## Task Description
 
-This Task will...
+<!-- This Task will... -->
 
 ## Epic Parent
 
