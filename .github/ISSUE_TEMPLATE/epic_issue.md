@@ -2,6 +2,7 @@
 name: Epic
 about: A task large enough that it needs to be divided into smaller tasks. It will usually be labeled as `enhancement`.
 ---
+<!-- Make sure to add this to the project (At the right) -->
 
 <!-- Should be the same as the Issue Title. -->
 # Epic Title
@@ -10,7 +11,10 @@ about: A task large enough that it needs to be divided into smaller tasks. It wi
 
 This Feature will...
 
-## List of Tasks (Complete in order)
+## List of Tasks
 
-1. [ ] [Task 1: Awesome Task Title](https://github.com/iron-claw-972/Code-Structure-2023/issues/1)
-2. [ ] [Task 2: Awesome Task Title](https://github.com/iron-claw-972/Code-Structure-2023/issues/2)
+Should these tasks be done in order?
+
+<!-- You can add an issue by typing a # symbol and selecting an option (the number is also listed in the issue), or clicking the second from the symbol -->
+1. [ ] #1
+2. [ ] #2

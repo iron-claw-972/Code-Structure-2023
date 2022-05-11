@@ -2,6 +2,7 @@
 name: Bug report
 about: Create a report to help us improve
 ---
+<!-- Make sure to add this to the project (At the right) -->
 
 <!-- Please search existing issues to avoid creating duplicates. -->
 
