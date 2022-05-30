@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Create a report to help us improve
+about: Create a report to address an issue that was found
 ---
 <!-- Make sure to add this to the project (At the right) -->
 
@@ -8,7 +8,7 @@ about: Create a report to help us improve
 
 ## Description
 
-Info about the bug goes here.
+<!-- Info about the bug goes here. -->
 
 ## Steps to Reproduce
 
@@ -17,4 +17,4 @@ Info about the bug goes here.
 
 ## Additional Info
 
-What was supposed to happen and what actually happened? Any other data?
+<!-- What was supposed to happen and what actually happened? Any other data? -->
