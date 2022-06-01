@@ -8,7 +8,9 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.util.Shuffleboard;
+import frc.robot.controls.Driver;
+import frc.robot.controls.Operator;
+import frc.robot.util.ShuffleboardManager;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -18,7 +20,7 @@ import frc.robot.util.Shuffleboard;
  */
 public class Robot extends TimedRobot {
   private Command m_autoCommand;
-  public static Shuffleboard shuffleboard = new Shuffleboard();
+  public static ShuffleboardManager shuffleboard = new ShuffleboardManager();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -31,6 +33,9 @@ public class Robot extends TimedRobot {
     DriverStation.silenceJoystickConnectionWarning(true);
 
     shuffleboard.setup();
+
+    Driver.configureControls();
+    Operator.configureControls();
   }
 
   /**
