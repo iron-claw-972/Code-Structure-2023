@@ -1,8 +1,7 @@
 package frc.robot.controls;
 
-import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.DoNothing;
 import frc.robot.constants.Constants;
-import frc.robot.subsystems.ExampleSubsystem;
 import lib.controllers.GameController;
 import lib.controllers.GameController.Button;
 
@@ -10,7 +9,7 @@ public class Operator {
   private static GameController operator = new GameController(Constants.oi.kOperatorJoy);
 
   public static void configureControls() {
-    operator.get(Button.A).whenPressed(new ExampleCommand(new ExampleSubsystem()));
+    operator.get(Button.A).whenPressed(new DoNothing());
   }
 
 }
