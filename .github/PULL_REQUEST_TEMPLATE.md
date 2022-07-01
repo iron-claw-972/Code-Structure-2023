@@ -1,5 +1,5 @@
 ## Overview
-<!-- A more broad overview than the next section, that people on non-programming should be able to understand -->
+<!-- A more broad overview than the next section, that should be fairly basic -->
 This PR will..
 
 ## Specific Changes Made
