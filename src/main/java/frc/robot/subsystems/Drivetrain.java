@@ -7,27 +7,33 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
+import frc.robot.util.MotorFactory;
 
 
 public class Drivetrain extends SubsystemBase {
 
-  TalonSRX leftMotor1 = new TalonSRX(Constants.drive.leftMotorPorts[0]);
-  TalonSRX leftMotor2 = new TalonSRX(Constants.drive.leftMotorPorts[1]);
+  private final WPI_TalonFX m_leftMotor1;
+  private final WPI_TalonFX m_leftMotor2;
   
-  TalonSRX rightMotor1 = new TalonSRX(Constants.drive.rightMotorPorts[0]);
-  TalonSRX rightMotor2 = new TalonSRX(Constants.drive.rightMotorPorts[1]);
+  private final WPI_TalonFX m_rightMotor1;
+  private final WPI_TalonFX m_rightMotor2;
 
-  /**
-   * Creates a new DriveSubsystem.
-   */
   public Drivetrain() {
-    leftMotor2.set(ControlMode.Follower, Constants.drive.leftMotorPorts[0]);
-    rightMotor2.set(ControlMode.Follower, Constants.drive.rightMotorPorts[0]);
+    this(MotorFactory.createTalonFX(Constants.drive.leftMotorPorts[0]), MotorFactory.createTalonFX(Constants.drive.leftMotorPorts[1]), MotorFactory.createTalonFX(Constants.drive.rightMotorPorts[0]), MotorFactory.createTalonFX(Constants.drive.rightMotorPorts[1]));
+  }
+
+  public Drivetrain(WPI_TalonFX leftMotor1, WPI_TalonFX leftMotor2, WPI_TalonFX rightMotor1, WPI_TalonFX rightMotor2) {
+    m_leftMotor1 = leftMotor1;
+    m_leftMotor2 = leftMotor2;
+    m_rightMotor1 = rightMotor1;
+    m_rightMotor2 = rightMotor2;
+
+    m_leftMotor2.set(ControlMode.Follower, m_leftMotor1.getDeviceID());
+    m_rightMotor2.set(ControlMode.Follower, m_rightMotor1.getDeviceID());
   }
 
   /**
@@ -37,8 +43,8 @@ public class Drivetrain extends SubsystemBase {
    * @param rightPower the commanded power to the right motors
    */
   public void tankDrive(double leftPower, double rightPower) {
-    leftMotor1.set(ControlMode.PercentOutput, leftPower);
-    rightMotor1.set(ControlMode.PercentOutput, rightPower);
+    m_leftMotor1.set(ControlMode.PercentOutput, leftPower);
+    m_rightMotor1.set(ControlMode.PercentOutput, rightPower);
   }
 
   /**
@@ -48,7 +54,7 @@ public class Drivetrain extends SubsystemBase {
    * @param turn the commanded turn rotation
    */
   public void arcadeDrive(double throttle, double turn) {
-    leftMotor1.set(ControlMode.PercentOutput, throttle + turn);
-    rightMotor1.set(ControlMode.PercentOutput, throttle - turn);
+    m_leftMotor1.set(ControlMode.PercentOutput, throttle + turn);
+    m_rightMotor1.set(ControlMode.PercentOutput, throttle - turn);
   }
 }
