@@ -32,8 +32,8 @@ public class Drivetrain extends SubsystemBase {
     m_rightMotor1 = rightMotor1;
     m_rightMotor2 = rightMotor2;
 
-    m_leftMotor2.set(ControlMode.Follower, m_leftMotor1.getDeviceID());
-    m_rightMotor2.set(ControlMode.Follower, m_rightMotor1.getDeviceID());
+    m_leftMotor2.follow(m_leftMotor1);
+    m_rightMotor2.follow(m_rightMotor1);
   }
 
   /**
