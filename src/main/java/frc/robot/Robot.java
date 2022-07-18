@@ -4,8 +4,12 @@
 
 package frc.robot;
 
+import org.littletonrobotics.junction.LoggedRobot;
+import org.littletonrobotics.junction.Logger;
+import org.littletonrobotics.junction.inputs.LoggedNetworkTables;
+import org.littletonrobotics.junction.io.*;
+
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.controls.Driver;
@@ -14,11 +18,10 @@ import frc.robot.util.ShuffleboardManager;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
- * each mode, as described in the TimedRobot documentation. If you change the name of this class or
- * the package after creating this project, you must also update the build.gradle file in the
- * project.
+ * each mode, as described in the LoggedRobot documentation. This is from AdvantageKit but functions
+ * almost identically to TimedRobot.
  */
-public class Robot extends TimedRobot {
+public class Robot extends LoggedRobot {
   private Command m_autoCommand;
   public static ShuffleboardManager shuffleboard = new ShuffleboardManager();
 
@@ -28,6 +31,23 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+
+    // Logging setup
+    setUseTiming(isReal()); // Run as fast as possible during replay
+    LoggedNetworkTables.getInstance().addTable("/SmartDashboard"); // Log & replay "SmartDashboard" values (no tables are logged by default).
+    Logger.getInstance().recordMetadata("ProjectName", "972Logging"); // Set a metadata value
+
+    if (isReal()) {
+        Logger.getInstance().addDataReceiver(new ByteLogReceiver("/media/sda1/")); // Log to USB stick (name will be selected automatically)
+        Logger.getInstance().addDataReceiver(new LogSocketServer(5800)); // Provide log data over the network, viewable in Advantage Scope.
+    } else {
+        String path = ByteLogReplay.promptForPath(); // Prompt the user for a file path on the command line
+        Logger.getInstance().setReplaySource(new ByteLogReplay(path)); // Read log file for replay
+        Logger.getInstance().addDataReceiver(new ByteLogReceiver(ByteLogReceiver.addPathSuffix(path, "_sim"))); // Save replay results to a new log with the "_sim" suffix
+    }
+
+    Logger.getInstance().start(); // Start logging! No more data receivers, replay sources, or metadata values may be added.
+
 
     // This is really annoying so it's disabled
     DriverStation.silenceJoystickConnectionWarning(true);
