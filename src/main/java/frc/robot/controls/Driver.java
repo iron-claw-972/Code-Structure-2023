@@ -11,5 +11,4 @@ public class Driver {
   public static void configureControls() {
     driver.get(Button.A).whenPressed(new DoNothing());
   }
-
 }

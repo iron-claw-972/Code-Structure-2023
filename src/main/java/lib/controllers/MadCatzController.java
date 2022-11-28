@@ -5,18 +5,22 @@ import edu.wpi.first.wpilibj2.command.button.*;
 
 public class MadCatzController extends Controller {
   public final Trigger
-    ALL_UP = get(HatSwitch.UP).or(get(HatSwitch.UP_LEFT)).or(get(HatSwitch.UP_RIGHT)),
-    ALL_DOWN = get(HatSwitch.DOWN).or(get(HatSwitch.DOWN_LEFT)).or(get(HatSwitch.DOWN_RIGHT)),
-    ALL_LEFT = get(HatSwitch.LEFT).or(get(HatSwitch.UP_LEFT)).or(get(HatSwitch.DOWN_LEFT)),
-    ALL_RIGHT = get(HatSwitch.RIGHT).or(get(HatSwitch.UP_RIGHT)).or(get(HatSwitch.DOWN_RIGHT));
-
+      ALL_UP = get(HatSwitch.UP).or(get(HatSwitch.UP_LEFT)).or(get(HatSwitch.UP_RIGHT)),
+      ALL_DOWN = get(HatSwitch.DOWN).or(get(HatSwitch.DOWN_LEFT)).or(get(HatSwitch.DOWN_RIGHT)),
+      ALL_LEFT = get(HatSwitch.LEFT).or(get(HatSwitch.UP_LEFT)).or(get(HatSwitch.DOWN_LEFT)),
+      ALL_RIGHT = get(HatSwitch.RIGHT).or(get(HatSwitch.UP_RIGHT)).or(get(HatSwitch.DOWN_RIGHT));
 
   public MadCatzController(int port) {
     super(port);
   }
 
   public enum Button {
-    B1(1), B2(2), B3(3), B4(4), B6(6), B7(7);
+    B1(1),
+    B2(2),
+    B3(3),
+    B4(4),
+    B6(6),
+    B7(7);
 
     public final int id;
 
@@ -26,7 +30,10 @@ public class MadCatzController extends Controller {
   }
 
   public enum Axis {
-    X(0), Y(1), ZAXIS(2), ZROTATE(3);
+    X(0),
+    Y(1),
+    ZAXIS(2),
+    ZROTATE(3);
 
     public final int id;
 
@@ -36,7 +43,15 @@ public class MadCatzController extends Controller {
   }
 
   public enum HatSwitch {
-    UNPRESSED(-1), UP(0), UP_RIGHT(45), RIGHT(90), DOWN_RIGHT(135), DOWN(180), DOWN_LEFT(235), LEFT(270), UP_LEFT(315);
+    UNPRESSED(-1),
+    UP(0),
+    UP_RIGHT(45),
+    RIGHT(90),
+    DOWN_RIGHT(135),
+    DOWN(180),
+    DOWN_LEFT(235),
+    LEFT(270),
+    UP_LEFT(315);
 
     public final int angle;
 

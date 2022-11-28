@@ -7,18 +7,17 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
 import frc.robot.util.MotorFactory;
-
 
 public class Drivetrain extends SubsystemBase {
 
   private final WPI_TalonFX m_leftMotor1;
   private final WPI_TalonFX m_leftMotor2;
-  
+
   private final WPI_TalonFX m_rightMotor1;
   private final WPI_TalonFX m_rightMotor2;
 
@@ -33,8 +32,9 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
-   * Drives the robot using tank drive controls
-   * Tank drive is slightly easier to code but less intuitive to control, so this is here as an example for now
+   * Drives the robot using tank drive controls Tank drive is slightly easier to code but less
+   * intuitive to control, so this is here as an example for now
+   *
    * @param leftPower the commanded power to the left motors
    * @param rightPower the commanded power to the right motors
    */

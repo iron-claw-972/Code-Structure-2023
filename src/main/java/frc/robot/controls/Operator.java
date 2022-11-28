@@ -11,5 +11,4 @@ public class Operator {
   public static void configureControls() {
     operator.get(Button.A).whenPressed(new DoNothing());
   }
-
 }

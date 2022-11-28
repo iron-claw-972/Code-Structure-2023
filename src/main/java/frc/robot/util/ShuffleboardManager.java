@@ -17,7 +17,7 @@ public class ShuffleboardManager {
   ShuffleboardTab m_autoTab = Shuffleboard.getTab("Auto");
 
   NetworkTableEntry m_commandScheduler = m_mainTab.add("Command Scheduler", "NULL").getEntry();
-  
+
   public void setup() {
     LiveWindow.disableAllTelemetry(); // LiveWindow is causing periodic loop overruns
 
@@ -34,10 +34,14 @@ public class ShuffleboardManager {
     m_autoCommand.addOption("Do Nothing", new PrintCommand("This will do nothing!"));
   }
 
-  public void loadCommandSchedulerShuffleboard(){
-    CommandScheduler.getInstance().onCommandInitialize(command -> m_commandScheduler.setString(command.getName() + " initialized."));
-    CommandScheduler.getInstance().onCommandInterrupt(command -> m_commandScheduler.setString(command.getName() + " interrupted."));
-    CommandScheduler.getInstance().onCommandFinish(command -> m_commandScheduler.setString(command.getName() + " finished."));
+  public void loadCommandSchedulerShuffleboard() {
+    CommandScheduler.getInstance()
+        .onCommandInitialize(
+            command -> m_commandScheduler.setString(command.getName() + " initialized."));
+    CommandScheduler.getInstance()
+        .onCommandInterrupt(
+            command -> m_commandScheduler.setString(command.getName() + " interrupted."));
+    CommandScheduler.getInstance()
+        .onCommandFinish(command -> m_commandScheduler.setString(command.getName() + " finished."));
   }
-
 }

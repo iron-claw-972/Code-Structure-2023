@@ -1,4 +1,5 @@
 package lib.controllers;
+
 import edu.wpi.first.wpilibj.Joystick;
 
 public class Controller {
