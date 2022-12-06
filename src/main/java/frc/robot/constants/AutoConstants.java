@@ -2,6 +2,9 @@ package frc.robot.constants;
 
 public class AutoConstants {
 
-  // Pathweaver output folder should be src/main/deploy/paths
-  public final String kTrajectoryDirectory = "paths/output/";
+  // Pathplanner output folder should be src/main/deploy/pathplanner
+  public final String kTrajectoryDirectory = "pathplanner/";
+
+  public final double kMaxAutoSpeed = 1.0; // m/s
+  public final double kMaxAutoAccel = 1.0; // m/s^2
 }
