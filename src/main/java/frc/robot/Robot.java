@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.controls.Driver;
 import frc.robot.controls.Operator;
+import frc.robot.util.PathGroupLoader;
 import frc.robot.util.ShuffleboardManager;
 
 /**
@@ -33,6 +34,8 @@ public class Robot extends TimedRobot {
     DriverStation.silenceJoystickConnectionWarning(true);
 
     shuffleboard.setup();
+
+    PathGroupLoader.loadPathGroups();
 
     Driver.configureControls();
     Operator.configureControls();

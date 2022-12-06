@@ -1,7 +1,6 @@
 package frc.robot.util;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -43,7 +42,7 @@ public class PathGroupLoader{
 
   public static ArrayList<PathPlannerTrajectory> getPathGroup(String pathGroupName) {
     if (pathGroups.get(pathGroupName) == null) {
-      System.out.println("Error retriving " + pathGroupName + " path!");
+      System.out.println("Error retrieving " + pathGroupName + " path!");
     }
     return pathGroups.get(pathGroupName);
   }
