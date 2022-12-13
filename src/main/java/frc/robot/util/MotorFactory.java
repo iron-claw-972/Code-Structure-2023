@@ -1,5 +1,9 @@
 package frc.robot.util;
 
+import java.io.IOException;
+
+import java.io.IOError;
+
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
@@ -129,12 +133,26 @@ public class MotorFactory {
    *                               the threshold before triggering
    * @return A fully configured TalonFX
    */
-  public static WPI_TalonFX createTalonFX(int id, String CANLoop, boolean StatorLimitEnable, double StatorCurrentLimit,
+  public static WPI_TalonFX createTalonFXFull(int id, String CANLoop, boolean StatorLimitEnable, double StatorCurrentLimit,
       double StatorTriggerThreshold, double StatorTriggerDuration, boolean SupplyLimitEnable, double SupplyCurrentLimit,
       double SupplyTriggerThreshold, double SupplyTriggerDuration) {
 
-    if (id == -1)
+    if (id == -1) {
       return null;
+    }
+
+    WPI_TalonFX talon = new WPI_TalonFX(id);
+
+    if (talon.getFirmwareVersion() != Constants.falcon.kFirmwareVersion) {
+      String errorMessage = "TalonFX " + id + " firmware incorrect. Has " + talon.getFirmwareVersion()
+          + ", currently FalconConstants.java requires: " + Constants.falcon.kFirmwareVersion;
+      if (Constants.falcon.kBreakOnWrongFirmware) {
+        DriverStation.reportError(errorMessage, true);
+        throw new IOError(new IOException(errorMessage));
+      } else {
+        DriverStation.reportWarning(errorMessage + ", ignoring due to user specification.", false);
+      }
+    }
 
     TalonFXConfiguration config = new TalonFXConfiguration();
 
@@ -146,13 +164,6 @@ public class MotorFactory {
 
     config.voltageCompSaturation = Constants.kMaxVoltage;
 
-    WPI_TalonFX talon = new WPI_TalonFX(id);
-
-    if (talon.getFirmwareVersion() != Constants.falcon.kFirmwareVersion) {
-      DriverStation.reportError("TalonFX " + id + " firmware incorrect. Has " + talon.getFirmwareVersion()
-          + ", currently FalconConstants.java requires: " + Constants.falcon.kFirmwareVersion, true);
-    }
-
     talon.configFactoryDefault();
     talon.configAllSettings(config);
     talon.enableVoltageCompensation(true);
@@ -162,15 +173,15 @@ public class MotorFactory {
     return talon;
   }
 
-  public static WPI_TalonFX createTalonFXDefault(int id, String CANLoop) {
-    return createTalonFX(id, CANLoop, Constants.falcon.kStatorLimitEnable, Constants.falcon.kStatorCurrentLimit,
+  public static WPI_TalonFX createTalonFX(int id, String CANLoop) {
+    return createTalonFXFull(id, CANLoop, Constants.falcon.kStatorLimitEnable, Constants.falcon.kStatorCurrentLimit,
         Constants.falcon.kStatorTriggerThreshold, Constants.falcon.kStatorTriggerDuration,
         Constants.falcon.kSupplyLimitEnable, Constants.falcon.kSupplyCurrentLimit,
         Constants.falcon.kSupplyTriggerThreshold, Constants.falcon.kSupplyTriggerDuration);
   }
 
   public static WPI_TalonFX createTalonFXSupplyLimit(int id, String CANLoop, double currentLimit, double triggerThreshold, double triggerDuration) {
-    return createTalonFX(id, CANLoop, Constants.falcon.kStatorLimitEnable, Constants.falcon.kStatorCurrentLimit,
+    return createTalonFXFull(id, CANLoop, Constants.falcon.kStatorLimitEnable, Constants.falcon.kStatorCurrentLimit,
         Constants.falcon.kStatorTriggerThreshold, Constants.falcon.kStatorTriggerDuration,
         true, currentLimit, triggerThreshold, triggerDuration);
   }
