@@ -8,8 +8,10 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.constants.Constants;
 import frc.robot.controls.Driver;
 import frc.robot.controls.Operator;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.util.PathGroupLoader;
 import frc.robot.util.ShuffleboardManager;
 
@@ -21,7 +23,8 @@ import frc.robot.util.ShuffleboardManager;
  */
 public class Robot extends TimedRobot {
   private Command m_autoCommand;
-  public static ShuffleboardManager shuffleboard = new ShuffleboardManager();
+  public static ShuffleboardManager shuffleboard;
+  public static Drivetrain drive;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -33,9 +36,14 @@ public class Robot extends TimedRobot {
     // This is really annoying so it's disabled
     DriverStation.silenceJoystickConnectionWarning(true);
 
-    shuffleboard.setup();
-
+    // load paths before auto starts
     PathGroupLoader.loadPathGroups();
+
+    // make subsystems
+    shuffleboard = new ShuffleboardManager();
+    drive = new Drivetrain();
+
+    shuffleboard.setup();
 
     Driver.configureControls();
     Operator.configureControls();
