@@ -116,7 +116,7 @@ public class MotorFactory {
    * defaults it is recommended to use the other createTalonFX.. methods.
    * 
    * @param id                     the id of the the motor
-   * @param CANLoop                the CAN loop the motor is on
+   * @param CANBus                 the CAN Bus the motor is on
    * @param StatorLimitEnable      whether or not to enable stator limiting
    * @param StatorCurrentLimit     the current, in amps, to return to after the
    *                               stator limit is triggered
@@ -133,7 +133,8 @@ public class MotorFactory {
    *                               the threshold before triggering
    * @return A fully configured TalonFX
    */
-  public static WPI_TalonFX createTalonFXFull(int id, String CANLoop, boolean StatorLimitEnable, double StatorCurrentLimit,
+  public static WPI_TalonFX createTalonFXFull(int id, String CANBus, boolean StatorLimitEnable,
+      double StatorCurrentLimit,
       double StatorTriggerThreshold, double StatorTriggerDuration, boolean SupplyLimitEnable, double SupplyCurrentLimit,
       double SupplyTriggerThreshold, double SupplyTriggerDuration) {
 
@@ -141,7 +142,7 @@ public class MotorFactory {
       return null;
     }
 
-    WPI_TalonFX talon = new WPI_TalonFX(id);
+    WPI_TalonFX talon = new WPI_TalonFX(id, CANBus);
 
     if (talon.getFirmwareVersion() != Constants.falcon.kFirmwareVersion) {
       String errorMessage = "TalonFX " + id + " firmware incorrect. Has " + talon.getFirmwareVersion()
@@ -173,16 +174,28 @@ public class MotorFactory {
     return talon;
   }
 
-  public static WPI_TalonFX createTalonFX(int id, String CANLoop) {
-    return createTalonFXFull(id, CANLoop, Constants.falcon.kStatorLimitEnable, Constants.falcon.kStatorCurrentLimit,
+  /**
+   * @param id
+   * @param CANBus
+   */
+  public static WPI_TalonFX createTalonFX(int id, String CANBus) {
+    return createTalonFXFull(id, CANBus, Constants.falcon.kStatorLimitEnable, Constants.falcon.kStatorCurrentLimit,
         Constants.falcon.kStatorTriggerThreshold, Constants.falcon.kStatorTriggerDuration,
         Constants.falcon.kSupplyLimitEnable, Constants.falcon.kSupplyCurrentLimit,
         Constants.falcon.kSupplyTriggerThreshold, Constants.falcon.kSupplyTriggerDuration);
   }
 
-  public static WPI_TalonFX createTalonFXSupplyLimit(int id, String CANLoop, double currentLimit, double triggerThreshold, double triggerDuration) {
-    return createTalonFXFull(id, CANLoop, Constants.falcon.kStatorLimitEnable, Constants.falcon.kStatorCurrentLimit,
-        Constants.falcon.kStatorTriggerThreshold, Constants.falcon.kStatorTriggerDuration,
-        true, currentLimit, triggerThreshold, triggerDuration);
+  public static WPI_TalonFX createTalonFXSupplyLimit(int id, String CANBus, double currentLimit,
+      double triggerThreshold, double triggerDuration) {
+    return createTalonFXFull(id, CANBus, Constants.falcon.kStatorLimitEnable, Constants.falcon.kStatorCurrentLimit,
+        Constants.falcon.kStatorTriggerThreshold, Constants.falcon.kStatorTriggerDuration, true, currentLimit,
+        triggerThreshold, triggerDuration);
+  }
+
+  public static WPI_TalonFX createTalonFXStatorLimit(int id, String CANBus, double currentLimit,
+      double triggerThreshold, double triggerDuration) {
+    return createTalonFXFull(id, CANBus, true, currentLimit, triggerThreshold, triggerDuration,
+        Constants.falcon.kSupplyLimitEnable, Constants.falcon.kSupplyCurrentLimit,
+        Constants.falcon.kSupplyTriggerThreshold, Constants.falcon.kSupplyTriggerDuration);
   }
 }
