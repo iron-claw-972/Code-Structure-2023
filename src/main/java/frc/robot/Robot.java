@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.constants.Constants;
 import frc.robot.controls.Driver;
 import frc.robot.controls.Operator;
 import frc.robot.subsystems.Drivetrain;
@@ -25,6 +24,8 @@ public class Robot extends TimedRobot {
   private Command m_autoCommand;
   public static ShuffleboardManager shuffleboard;
   public static Drivetrain drive;
+
+  private static boolean isTestMode = false;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -69,6 +70,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     CommandScheduler.getInstance().cancelAll();
+    isTestMode = false;
   }
 
   @Override
@@ -79,6 +81,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link Robot} class. */
   @Override
   public void autonomousInit() {
+    isTestMode = false;
     if (m_autoCommand != null) {
       m_autoCommand.schedule();
     }
@@ -97,6 +100,7 @@ public class Robot extends TimedRobot {
     if (m_autoCommand != null) {
       m_autoCommand.cancel();
     }
+    isTestMode = false;
   }
 
   /** This function is called periodically during operator control. */
@@ -107,6 +111,12 @@ public class Robot extends TimedRobot {
   public void testInit() {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
+
+    // it may be needed to disable LiveWindow (we don't use it anyway)
+    //LiveWindow.setEnabled(false)
+
+    isTestMode = true;
+
   }
 
   /** This function is called periodically during test mode. */
@@ -120,5 +130,9 @@ public class Robot extends TimedRobot {
    */
   public Command getAutonomousCommand() {
     return shuffleboard.getAutonomousCommand();
+  }
+
+  public static boolean isTestMode() {
+    return isTestMode;
   }
 }
