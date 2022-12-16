@@ -12,7 +12,7 @@ public class Functions {
    * @param deadband The deadband
    * @return the input rescaled and to fit [-1, -deadband], [deadband, 1]
    */
-  public static double deadband(double deadband, double input) {
+  public static double deadband(double input, double deadband) {
     if (Math.abs(input) <= deadband) {
       return 0;
     } else if (Math.abs(input) == 1) {
@@ -30,7 +30,7 @@ public class Functions {
    * @return the input rescaled and to fit [-1, -kDeadband], [kDeadband, 1]
    */
   public static double deadband(double input) {
-    return deadband(Constants.oi.kDeadband, input);
+    return deadband(input, Constants.oi.kDeadband);
   }
 
   /**
